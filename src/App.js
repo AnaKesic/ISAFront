@@ -7,11 +7,14 @@ import Layout from './hoc/Layout/Layout';
 //import Checkout from './containers/Checkout/Checkout';
 //import Orders from './containers/Orders/Orders';
 import Auth from './containers/Auth/Auth';
-import Flights from './containers/Flights/Flights';
+import Flights from './containers/Flights/allFights/Flights';
 import Login from './containers/Auth/Login/Login';
 import Logout from './containers/Auth/Logout/Logout';
-import Tickets from './containers/Tickets/Tickets'
+import Tickets from './containers/Tickets/Tickets';
+import  {default as StyledLibrary}  from './containers/Tickets/Tickets';
+import New from './containers/Flights/NewFlight/New';
 import * as actions from './store/actions/index';
+
 
 class App extends Component {
   componentDidMount () {
@@ -25,16 +28,18 @@ class App extends Component {
         <Route path="/login" component={Login} />
          <Route path="/flights" component= {Flights} /> 
          <Route path="/" component ={Flights}/>
+         <Route path="/mytickets" component={StyledLibrary}/>
+         <Route path="/newFlight" component={New}/>
         {/* <Route path="/flights" component={} */}
         {/* <Route path="/" exact component={BurgerBuilder} /> */}
-         <Redirect to="/" /> 
+         {/* <Redirect to="/" />  */}
       </Switch>
     );
 
    if ( this.props.isAuthenticated ) {
       routes = (
         <Switch>
-          <Route path="/flights" component={Tickets}/>
+         {/* <Route path="/flights" component={Tickets}/> */}
           <Route path="/logout" exact component={Logout}/>
           <Route path="/" component={Flights}/>
            <Redirect to="/" /> 

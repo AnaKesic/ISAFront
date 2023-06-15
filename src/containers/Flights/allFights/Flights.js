@@ -12,7 +12,7 @@ class Flights extends Component {
        }
 
        componentDidMount() {
-        axios.get('https://localhost:44326/api/Flight/all')
+        axios.get('http://localhost:8082/api/Flight/all')
           .then(res => {
               const fli=res.data;
              this.setState({flights:fli})
@@ -20,7 +20,24 @@ class Flights extends Component {
              console.log(this.state)
           });
       }
-    
+      
+       handleAdd = (selectedFlight) => {
+        var obj={
+               FlightID:selectedFlight.id,
+               PassengerID: localStorage.userId
+        }
+        axios.post('http://localhost:8082/api/Ticket/add',obj)
+        .then(res => {
+           
+           
+           //this.state.flights=res.data;
+           console.log(res.data)
+        });
+        // Use the selectedFlight object to access the information of the clicked flight card
+        console.log(selectedFlight);
+        // Perform additional logic or actions based on the selected flight card
+        // For example, you can dispatch an action, update state, or navigate to a new page
+      };
     
 
       render() {
@@ -30,6 +47,7 @@ class Flights extends Component {
                       
                             return(    
                                    <React.Fragment>
+                                    
                                    {flights.map(user => {
                                           const { airportDeparture,airportDestination,arrivalTime,capacity,deleted, departureTime,duration,id,ticketPrice}=user;
                                           var d1= new Date(arrivalTime);
@@ -68,7 +86,7 @@ class Flights extends Component {
                                                         {/* <span className={classes.detail}>{ticketPrice}</span> */}
                                                  </div>
                                                  <div className={classes.flightclass}>
-                                                  {this.props.isAuthenticated? <button className={classes.btnn}>Buy ticket</button> :null }
+                                                  {(this.props.isAuthenticated && this.props.isUser)?  <button className={classes.btnn} onClick={() => this.handleAdd(user)}>Buy ticket</button> :null }
                                                        
                                                  </div>
                                                  
@@ -98,5 +116,6 @@ const mapStateToProps = state => {
   return {
 
     isAuthenticated: state.auth.token !== null,
+    isUser: state.auth.role==0
   }}
 export default connect( mapStateToProps )( Flights )

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios'
-import classes from '../Flights/Flight.module.css'
+import classes from '../Flights/allFights/Flight.module.css'
 import { format, parse } from 'date-fns';
 class Tickets extends Component {
     state={
@@ -10,12 +10,12 @@ class Tickets extends Component {
      }
 
      componentDidMount() {
-      axios.get('https://localhost:44326/api/Ticket/mytickets')
+      axios.get('http://localhost:8082/api/Ticket/allByUser', localStorage.userId)
         .then(res => {
-            const fli=res.data;
-           this.setState({flights:fli})
-           //this.state.flights=res.data;
-           console.log(this.state)
+          const fli=res.data;
+          this.setState({flights:fli})
+          //this.state.flights=res.data;
+          console.log(this.state)
         });
 
         

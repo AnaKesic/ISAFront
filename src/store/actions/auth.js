@@ -8,11 +8,12 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, userId) => {
+export const authSuccess = (token, userId,rolee) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
         idToken: token,
-        userId: userId
+        userId: userId,
+        role:rolee
     };
 };
 
@@ -27,6 +28,7 @@ export const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('expirationDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('role');
     return {
         type: actionTypes.AUTH_LOGOUT
     };
@@ -48,19 +50,20 @@ export const auth = (email, password, isSignup) => {
             password: password,
            
         };
-        let url = 'https://localhost:44326/api/Auth/login';
+        let url = 'http://localhost:8082/api/Auth/login';
         if (!isSignup) {
-            url = 'https://localhost:44326/api/Auth/login';
+            url = 'http://localhost:8082/api/Auth/login';
         }
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + 30 * 1000);
-                localStorage.setItem('token', response.data.idToken);
+                localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', authData.email);
-                dispatch(authSuccess(response.data.idToken, authData.email));
-                dispatch(checkAuthTimeout(30));
+                localStorage.setItem('role',response.data.role);
+                dispatch(authSuccess(response.data.idToken, authData.email, response.data.role));
+                dispatch(checkAuthTimeout(300));
             })
             .catch(err => {
                 dispatch(authFail(err.response.data.error));
@@ -86,7 +89,8 @@ export const authCheckState = () => {
                 dispatch(logout());
             } else {
                 const userId = localStorage.getItem('userId');
-                dispatch(authSuccess(token, userId));
+                const role=localStorage.getItem('role');
+                dispatch(authSuccess(token, userId,role));
                 dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) / 1000 ));
             }   
         }
@@ -94,7 +98,7 @@ export const authCheckState = () => {
 };
 export const register= (user)=>{
        return dispatch=>{
-        axios.post('https://localhost:44348/api/User/registration', user)
+        axios.post('http://localhost:8082/api/User/registration', user)
             .then(response => {
                 
                 console.log(response);

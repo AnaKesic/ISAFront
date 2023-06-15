@@ -12,6 +12,10 @@ body {
   justify-content: center;
   font-family: "Roboto", sans-serif;
 }
+.add{
+  height:30px;
+  width:auto;
+}
 .flightcard {
   width: 700px;
   height: 200px;
