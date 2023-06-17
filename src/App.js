@@ -25,9 +25,10 @@ class App extends Component {
         <Route path="/login" component={Login} />
          <Route path="/flights" component= {Flights} /> 
          <Route path="/" component ={Flights}/>
+         <Route path="/flights" component= {Flights} /> 
         {/* <Route path="/flights" component={} */}
         {/* <Route path="/" exact component={BurgerBuilder} /> */}
-         <Redirect to="/" /> 
+         {/* <Redirect to="/" />  */}
       </Switch>
     );
 
