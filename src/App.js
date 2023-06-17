@@ -27,8 +27,8 @@ class App extends Component {
         <Route path="/auth" component={Auth} />
         <Route path="/login" component={Login} />
          <Route path="/flights" component= {Flights} /> 
-         <Route path="/" component ={Flights}/>
-        
+          <Route path="/" component ={Flights}/>
+         <Route path="/newFlight" component={FlightForm}/>
    
         {/* <Route path="/flights" component={} */}
         {/* <Route path="/" exact component={BurgerBuilder} /> */}
@@ -42,7 +42,7 @@ class App extends Component {
          {/* <Route path="/flights" component={Tickets}/> */}
          <Route path="/mytickets" component={Tickets}/>
           <Route path="/logout" exact component={Logout}/>
-          <Route path="/newFlight" component={FlightForm}/>
+          
           <Route path="/" component={Flights}/>
            <Redirect to="/" /> 
         </Switch>

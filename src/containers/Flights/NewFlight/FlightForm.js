@@ -110,11 +110,19 @@ class FlightForm extends Component {
     } = this.state;
 
     return (
-      <div className={classes.flightcard}>
-      <form>
-        <div className="form-container">
-          <div className="form-row">
-        <input className={classes.InputElement}
+      < div className={classes.flightcard}>
+      < div className={classes.container}>
+      <form className={classes.form}>
+      
+        <div className={classes.formfirst}>
+        <div className={classes.detailspersonal}>
+                    <span className={classes.title}>Create new flight</span>
+
+        <div className={classes.fields}>
+
+          <div className={classes.inputfield}>
+        <label> Departure airport city</label>
+        <input 
           type="text"
           name="destinationName"
           placeholder="Destination Name"
@@ -123,68 +131,80 @@ class FlightForm extends Component {
           required
         />
         </div>
-        <div className="form-row">
+        <div className={classes.inputfield}>
+          <label>Arrival airport city</label>
         <input 
-          type="text"
-          name="airportArrivalName"
-          placeholder="Airport Arrival Name"
-          value={airportArrivalName}
-          onChange={this.handleInputChange}
-          required
-        />
-        </div>
-        <div className="form-row">
-        <input 
+
           type="text"
           name="arrivalDestinationName"
           placeholder="Arrival Destination Name"
           value={arrivalDestinationName}
           onChange={this.handleInputChange}
           required
+
+         
         />
         </div>
-        <div className="form-row">
+        <div className={classes.inputfield}>
+        <label> Departure airport name</label>
         <input 
-          type="text"
-          name="departureAirportName"
-          placeholder="Departure Airport Name"
-          value={departureAirportName}
-          onChange={this.handleInputChange}
-          required
+               type="text"
+               name="departureAirportName"
+               placeholder="Departure Airport Name"
+               value={departureAirportName}
+               onChange={this.handleInputChange}
+               required
         />
         </div>
-        <div className="form-row">
-        <input
+        <div className={classes.inputfield}>
+        <label> Arrival airport name</label>
+        <input 
+            type="text"
+            name="airportArrivalName"
+            placeholder="Airport Arrival Name"
+            value={airportArrivalName}
+            onChange={this.handleInputChange}
+            required
+        />
+        </div>
+        <div className={classes.inputfield}>
+          <label> Time of departure</label>
+        <input 
+            type="datetime-local"
+            name="departureTime"
+            placeholder="Departure Time"
+            value={departureTime}
+            onChange={this.handleInputChange}
+            required
+        />
+        </div>
+        <div className={classes.inputfield}>
+          <label> Time of arrival</label>
+        <input 
+ 
           type="datetime-local"
           name="arrivalTime"
           placeholder="Arrival Time"
           value={arrivalTime}
           onChange={this.handleInputChange}
           required
+
         />
         </div>
-        <div className="form-row">
-        <input
-          type="datetime-local"
-          name="departureTime"
-          placeholder="Departure Time"
-          value={departureTime}
-          onChange={this.handleInputChange}
-          required
-        />
-        </div>
-        <div className="form-row">
-        <input
+        <div className={classes.inputfield}>
+          <label>Price of ticket</label>
+        <input 
           type="text"
           name="cost"
-          placeholder="Cost"
+          placeholder="Price"
           value={cost}
           onChange={this.handleInputChange}
           required
         />
         </div>
-        <div className="form-row">
-        <input
+        <div className={classes.inputfield}>
+          <label>Number of avaiable cards</label>
+        <input 
           type="text"
           name="capacity"
           placeholder="Capacity"
@@ -193,13 +213,18 @@ class FlightForm extends Component {
           required
         />
         </div>
-         <div className="form-row">
+        <div className={classes.inputfield}></div>
+         <div className={classes.inputfield}>
         <button type="submit" onClick={this.handleAddFlight} disabled={!isFormValid}>
           Add Flight
         </button>
         </div>
         </div>
+        </div>
+        </div>
+        
       </form>
+      </div>
       </div>
     );
   }

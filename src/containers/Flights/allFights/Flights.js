@@ -127,7 +127,11 @@ class Flights extends Component {
                             return(    
                                    <React.Fragment>
                                     
-                                    <div className={classes.searchContainer}>
+          
+          
+          <div className={classes.searchContainer}>
+          <div className={classes.fields}>
+          <div className={classes.inputfield}>
           <input
             type="text"
             placeholder="Airport Departure"
@@ -135,6 +139,9 @@ class Flights extends Component {
             onChange={this.handleSearchAirportDepartureChange}
             required
           />
+           <span> "jjkj" </span>
+          </div>
+          <div className={classes.inputfield}>
           <input
             type="text"
             placeholder="Airport Destination"
@@ -142,6 +149,9 @@ class Flights extends Component {
             onChange={this.handleSearchAirportDestinationChange}
             required
           />
+           <span> "jjkj" </span>
+          </div>
+          <div className={classes.inputfield}>
              <input
             type="datetime-local"
             placeholder="Departure Time"
@@ -149,11 +159,16 @@ class Flights extends Component {
             onChange={this.handleSearchDepartureTimeChange}
             required
           />
-          {this.state.searchArrivalTime !== '' &&
+          
+          
+          {(this.state.searchArrivalTime !== '' &&
             this.state.searchDepartureTime !== '' &&
-            new Date(this.state.searchDepartureTime) > new Date(this.state.searchArrivalTime) && (
-              <span className={classes.validationError}>Departure time cannot be after arrival time</span>
-          )}
+            new Date(this.state.searchDepartureTime) > new Date(this.state.searchArrivalTime) )? 
+              <label className={classes.validationError}>Departure time cannot be after arrival time</label>: 
+              <span> "jjkj" </span>
+          }
+          </div>
+          <div className={classes.inputfield}>
           <input
             type="datetime-local"
             placeholder="Arrival Time"
@@ -161,12 +176,14 @@ class Flights extends Component {
             onChange={this.handleSearchArrivalTimeChange}
             required
           />
-          {this.state.searchArrivalTime !== '' &&
+          {(this.state.searchArrivalTime !== '' &&
             this.state.searchDepartureTime !== '' &&
-            new Date(this.state.searchArrivalTime) < new Date(this.state.searchDepartureTime) && (
-              <span className={classes.validationError}>Arrival time cannot be before departure time</span>
-          )}
-       
+            new Date(this.state.searchArrivalTime) < new Date(this.state.searchDepartureTime)) ? 
+              <label  className={classes.validationError}>Arrival time cannot be before departure time</label>:
+              <span> "jjkj" </span>
+          }
+         </div>
+         <div className={classes.inputfield}>
           <input
             type="number"
             placeholder="Number of Cards"
@@ -174,11 +191,17 @@ class Flights extends Component {
             onChange={this.handleSearchNumOfCardsChange}
             required
           />
-          {this.state.searchNumOfCards !== '' &&
-            (isNaN(this.state.searchNumOfCards) || Number(this.state.searchNumOfCards) <= 0) && (
-              <span className={classes.validationError}>Number of cards must be a positive integer</span>
-          )}
+          {(this.state.searchNumOfCards !== '' &&
+            (isNaN(this.state.searchNumOfCards) || Number(this.state.searchNumOfCards) <= 0)) ? 
+              <label className={classes.validationError}>Number of cards must be a positive integer</label>:
+              <span> "jjkj" </span>
+          }
+          </div>
+          <div className={classes.inputfield}>
           <button onClick={this.handleSearch}>Search</button>
+          <span> "jjkj" </span>
+       </div>
+        </div>
         </div>
                                    {this.state.flights.map(user => {
                                           const { airportDeparture,airportDestination,arrivalTime,capacity,deleted, departureTime,duration,id,ticketPrice}=user;

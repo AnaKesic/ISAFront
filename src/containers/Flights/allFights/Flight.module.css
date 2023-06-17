@@ -193,3 +193,89 @@ transition: color .15s ease-in-out,background-color .15s ease-in-out,border-colo
   color: red;
 }
 
+.fields{
+  height:100px;
+  display: flex;
+  padding: 5px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.searchContainer{
+
+}
+.fields .inputfield{
+  
+  display: flex;
+  padding: 5px;
+  flex-direction: column;
+  margin: 4px 0;
+}
+.inputfield input{
+  height: 70%;
+}
+.inputfield label{
+  font-size: 10px;
+  font-weight: 500;
+  color: #2e2e2e;
+  visibility: hidden;
+}
+
+.inputfield span{
+  content: '.';
+  visibility: hidden;
+  
+}
+.inputfield input, select{
+  outline: none;
+  height: 70%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+.inputfield input :focus,
+.input-field select:focus{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+.inputfield select,
+.inputfield input[type="date"]{
+  color: #707070;
+}
+.inputfield input[type="date"]:valid{
+  color: #333;
+}
+
+.inputfield button, .backBtn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 45px;
+  max-width: 200px;
+  width: 100%;
+  border: none;
+  outline: none;
+  color: #fff;
+  border-radius: 5px;
+  margin: 25px 0;
+  background-color: #4070f4;
+  transition: all 0.3s linear;
+  cursor: pointer;
+}
+.inputfield .btnText{
+  font-size: 14px;
+  font-weight: 400;
+}
+.inputfield button:hover{
+  background-color: #265df2;
+}
+.inputfield button i,
+.inputfield .backBtn i{
+  margin: 0 6px;
+}
+
+
