@@ -189,4 +189,7 @@ transition: color .15s ease-in-out,background-color .15s ease-in-out,border-colo
     background-color: #0b5ed7;
     border-color: #0a58ca;
 }
+.validationError {
+  color: red;
+}
 

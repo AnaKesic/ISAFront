@@ -10,9 +10,9 @@ import Auth from './containers/Auth/Auth';
 import Flights from './containers/Flights/allFights/Flights';
 import Login from './containers/Auth/Login/Login';
 import Logout from './containers/Auth/Logout/Logout';
-import Tickets from './containers/Tickets/Tickets';
-import  {default as StyledLibrary}  from './containers/Tickets/Tickets';
-import New from './containers/Flights/NewFlight/New';
+//mport Tickets from './containers/Tickets/Tickets';
+import  Tickets  from './containers/Tickets/Tickets.js';
+import FlightForm from './containers/Flights/NewFlight/FlightForm';
 import * as actions from './store/actions/index';
 
 
@@ -28,8 +28,8 @@ class App extends Component {
         <Route path="/login" component={Login} />
          <Route path="/flights" component= {Flights} /> 
          <Route path="/" component ={Flights}/>
-         <Route path="/mytickets" component={StyledLibrary}/>
-         <Route path="/newFlight" component={New}/>
+        
+   
         {/* <Route path="/flights" component={} */}
         {/* <Route path="/" exact component={BurgerBuilder} /> */}
          {/* <Redirect to="/" />  */}
@@ -40,7 +40,9 @@ class App extends Component {
       routes = (
         <Switch>
          {/* <Route path="/flights" component={Tickets}/> */}
+         <Route path="/mytickets" component={Tickets}/>
           <Route path="/logout" exact component={Logout}/>
+          <Route path="/newFlight" component={FlightForm}/>
           <Route path="/" component={Flights}/>
            <Redirect to="/" /> 
         </Switch>

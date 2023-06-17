@@ -18,12 +18,19 @@ body {
 }
 .flightcard {
   width: 700px;
-  height: 200px;
+  height: 500px;
   margin: 40px auto;
   border-radius: 50px;
   overflow: hidden;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
+.flightcard .rowws {
+  grid-template-rows: 100px 100px 100px 100px ;
+
+  grid-template-columns: 300px 300px;
+  display: grid;
+}
+
 .flightcard .flightcardheader {
   height: 250px;
   width: 100%;
@@ -188,5 +195,139 @@ transition: color .15s ease-in-out,background-color .15s ease-in-out,border-colo
     color: #fff;
     background-color: #0b5ed7;
     border-color: #0a58ca;
+}
+
+
+.Input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+ 
+}
+
+.Label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.InputElement {
+  align-items: center;
+  justify-content: center;
+  float: center;
+  text-align: center;
+
+  outline: none;
+  border: 1px solid #ccc;
+  background-color: white;
+  font: inherit;
+  padding: 6px 10px;
+  display: block;
+  width: 80%;
+  height:70%;
+  box-sizing: border-box;
+  border-radius: 15px 15px 15px 15px;
+  width: calc(100% / 2 - 20px);
+  margin-bottom: 15px;
+}
+
+.InputElement:focus {
+  outline: none;
+  background-color: #ccc;
+ 
+}
+
+.Invalid {
+  border: 1px solid red;
+  background-color: #FDA49A;
+}
+.form-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 10px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.form-row.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-row button {
+  grid-column: 2 / -1;
+}
+
+.form-row input,
+.form-row button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.container {
+  max-width: 700px;
+  width: 100%;
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+}
+.container .title {
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+
+.container .title::before {
+  content: "";
+  position: absolute;
+  height: 3.5px;
+  width: 30px;
+  background: linear-gradient(135deg, var(--main-blue), var(--main-purple));
+  left: 0;
+  bottom: 0;
+}
+
+.container form .user__details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+/* inside the form user details */
+form .user__details .input__box {
+  width: calc(100% / 2 - 20px);
+  margin-bottom: 15px;
+}
+
+.user__details .input__box .details {
+  font-weight: 500;
+  margin-bottom: 5px;
+  display: block;
+}
+.user__details .input__box input {
+  height: 45px;
+  width: 100%;
+  outline: none;
+  border-radius: 5px;
+  border: 1px solid var(--main-grey);
+  padding-left: 15px;
+  font-size: 16px;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.user__details .input__box input:focus,
+.user__details .input__box input:valid {
+  border-color: var(--main-purple);
 }
 

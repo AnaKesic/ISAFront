@@ -7,8 +7,14 @@ import { connect } from 'react-redux';
 class Flights extends Component {
 
        state={
-
-          flights:[]
+        searchAirportDeparture: '',
+        searchAirportDestination: '',
+        searchArrivalTime: '',
+        searchDepartureTime: '',
+        searchNumOfCards: '',
+        flights:[],
+        showSpan:false,
+        specialPrice:''
        }
 
        componentDidMount() {
@@ -22,9 +28,12 @@ class Flights extends Component {
       }
       
        handleAdd = (selectedFlight) => {
+        var num="";
+        {this.state.searchNumOfCards==''? num=1 : num=this.state.searchNumOfCards}
         var obj={
                FlightID:selectedFlight.id,
-               PassengerID: localStorage.userId
+               PassengerID: localStorage.userId,
+               num:num
         }
         axios.post('http://localhost:8082/api/Ticket/add',obj)
         .then(res => {
@@ -40,15 +49,138 @@ class Flights extends Component {
       };
     
 
+      handleSearchAirportDepartureChange = (event) => {
+        this.setState({ searchAirportDeparture: event.target.value });
+      };
+      
+      handleSearchAirportDestinationChange = (event) => {
+        this.setState({ searchAirportDestination: event.target.value });
+      };
+      
+      handleSearchArrivalTimeChange = (event) => {
+        this.setState({ searchArrivalTime: event.target.value });
+      };
+      
+      handleSearchDepartureTimeChange = (event) => {
+        this.setState({ searchDepartureTime: event.target.value });
+      };
+      
+      handleSearchNumOfCardsChange = (event) => {
+        this.setState({ searchNumOfCards: event.target.value });
+      };
+
+      handleSearch = () => {
+        const {
+          searchAirportDeparture,
+          searchAirportDestination,
+          searchArrivalTime,
+          searchDepartureTime,
+          searchNumOfCards,
+          flights
+        } = this.state;
+         this.state.showSpan=true;
+        
+        if (
+          searchAirportDeparture.trim() === '' ||
+          searchAirportDestination.trim() === '' ||
+          searchArrivalTime.trim() === '' ||
+          searchDepartureTime.trim() === '' ||
+          searchNumOfCards.trim() === ''
+        ) {
+          // Display an error message or handle the empty fields as per your requirement
+          console.log('All fields are required');
+          return;
+        }
+      
+        const filteredFlights = flights.filter((flight) => {
+          const { airportDeparture, airportDestination, arrivalTime, departureTime, capacity, ticketPrice } = flight;
+          this.state.specialPrice= ticketPrice * Number(searchNumOfCards);
+          // Filter by airportDeparture, airportDestination, and capacity
+          const isValidAirportDeparture = airportDeparture.name.toLowerCase().includes(searchAirportDeparture.toLowerCase());
+          const isValidAirportDestination = airportDestination.name.toLowerCase().includes(searchAirportDestination.toLowerCase());
+          const isValidCapacity = searchNumOfCards === '' || capacity >= Number(searchNumOfCards);
+      
+          // Check arrival time and departure time if they are not empty
+          let isValidArrivalTime = true;
+          let isValidDepartureTime = true;
+          if (searchArrivalTime !== '' && searchDepartureTime !== '') {
+            const selectedArrivalTime = new Date(searchArrivalTime);
+            const selectedDepartureTime = new Date(searchDepartureTime);
+            const arr= new Date(arrivalTime);
+            const dep = new Date(departureTime);
+            isValidArrivalTime = selectedArrivalTime >= arr;
+            isValidDepartureTime = selectedDepartureTime <= dep;
+          }
+      
+          return isValidAirportDeparture && isValidAirportDestination && isValidArrivalTime && isValidDepartureTime && isValidCapacity;
+        });
+      
+        // Update the state with the filtered flights
+        this.setState({ flights:filteredFlights });
+      };
+
       render() {
-       const { flights} = this.state;
+       //const { flights} = this.state.flights;
       
               
                       
                             return(    
                                    <React.Fragment>
                                     
-                                   {flights.map(user => {
+                                    <div className={classes.searchContainer}>
+          <input
+            type="text"
+            placeholder="Airport Departure"
+            value={this.state.searchAirportDeparture}
+            onChange={this.handleSearchAirportDepartureChange}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Airport Destination"
+            value={this.state.searchAirportDestination}
+            onChange={this.handleSearchAirportDestinationChange}
+            required
+          />
+             <input
+            type="datetime-local"
+            placeholder="Departure Time"
+            value={this.state.searchDepartureTime}
+            onChange={this.handleSearchDepartureTimeChange}
+            required
+          />
+          {this.state.searchArrivalTime !== '' &&
+            this.state.searchDepartureTime !== '' &&
+            new Date(this.state.searchDepartureTime) > new Date(this.state.searchArrivalTime) && (
+              <span className={classes.validationError}>Departure time cannot be after arrival time</span>
+          )}
+          <input
+            type="datetime-local"
+            placeholder="Arrival Time"
+            value={this.state.searchArrivalTime}
+            onChange={this.handleSearchArrivalTimeChange}
+            required
+          />
+          {this.state.searchArrivalTime !== '' &&
+            this.state.searchDepartureTime !== '' &&
+            new Date(this.state.searchArrivalTime) < new Date(this.state.searchDepartureTime) && (
+              <span className={classes.validationError}>Arrival time cannot be before departure time</span>
+          )}
+       
+          <input
+            type="number"
+            placeholder="Number of Cards"
+            value={this.state.searchNumOfCards}
+            onChange={this.handleSearchNumOfCardsChange}
+            required
+          />
+          {this.state.searchNumOfCards !== '' &&
+            (isNaN(this.state.searchNumOfCards) || Number(this.state.searchNumOfCards) <= 0) && (
+              <span className={classes.validationError}>Number of cards must be a positive integer</span>
+          )}
+          <button onClick={this.handleSearch}>Search</button>
+        </div>
+                                   {this.state.flights.map(user => {
                                           const { airportDeparture,airportDestination,arrivalTime,capacity,deleted, departureTime,duration,id,ticketPrice}=user;
                                           var d1= new Date(arrivalTime);
                                           const datearr= format(d1,"dd.MM.yyyy");
@@ -83,6 +215,8 @@ class Flights extends Component {
                                                  </div>
                                                  <div className={classes.flightnumber}>
                                                         <span className={classes.title}>Price: {ticketPrice}</span>
+                                                        { this.state.showSpan ?<span className={classes.title}>Price for {this.state.searchNumOfCards}: {this.state.specialPrice} </span>:null}
+                                                       
                                                         {/* <span className={classes.detail}>{ticketPrice}</span> */}
                                                  </div>
                                                  <div className={classes.flightclass}>
