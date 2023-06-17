@@ -94,7 +94,7 @@ export const authCheckState = () => {
 };
 export const register= (user)=>{
        return dispatch=>{
-        axios.post('https://localhost:44348/api/User/registration', user)
+        axios.post('https://localhost:44326/api/User/registration', user)
             .then(response => {
                 
                 console.log(response);
