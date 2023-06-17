@@ -12,6 +12,10 @@ body {
   justify-content: center;
   font-family: "Roboto", sans-serif;
 }
+.add{
+  height:30px;
+  width:auto;
+}
 .flightcard {
   width: 700px;
   height: 200px;
@@ -184,5 +188,8 @@ transition: color .15s ease-in-out,background-color .15s ease-in-out,border-colo
     color: #fff;
     background-color: #0b5ed7;
     border-color: #0a58ca;
+}
+.validationError {
+  color: red;
 }
 
