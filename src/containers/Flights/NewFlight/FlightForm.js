@@ -40,11 +40,12 @@ class FlightForm extends Component {
     ticketPrice:this.state.cost
    
    }
-    axios.post('http://localhost:8082/api/Flight/add',flight)
+    axios.post('http://localhost:8082/api/Flight/addflight',flight)
           .then(res => {
               const fli=res.data;
              this.setState({flights:fli})
              //this.state.flights=res.data;
+             window.location.href = '/';
              console.log(this.state)
           });
     console.log('Flight added:', this.state);

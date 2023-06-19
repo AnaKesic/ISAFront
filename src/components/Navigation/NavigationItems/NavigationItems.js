@@ -20,6 +20,10 @@ const navigationItems = ( props ) => {
         { (props.isAdmin)?
              <NavigationItem link="/newFlight" > Create flight</NavigationItem>
             :null}
+            
+       { (!props.isAdmin && props.isAuthenticated )?
+             <NavigationItem link="/mytickets" > My tickets</NavigationItem>
+            :null}
        
     </ul>
 );

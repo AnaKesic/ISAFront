@@ -38,7 +38,7 @@ class Flights extends Component {
         axios.post('http://localhost:8082/api/Ticket/add',obj)
         .then(res => {
            
-           
+          window.location.href = '/mytickets';
            //this.state.flights=res.data;
            console.log(res.data)
         });
@@ -48,6 +48,24 @@ class Flights extends Component {
         // For example, you can dispatch an action, update state, or navigate to a new page
       };
     
+      handleDelete = (selectedFlight) => {
+       
+        axios.get(`http://localhost:8082/api/Flight/delete/${selectedFlight.id}` )
+        .then(res => {
+           
+           this.componentDidMount();
+           //this.state.flights=res.data;
+           console.log(res.data)
+        });
+        // Use the selectedFlight object to access the information of the clicked flight card
+        console.log(selectedFlight);
+        // Perform additional logic or actions based on the selected flight card
+        // For example, you can dispatch an action, update state, or navigate to a new page
+      };
+    
+
+
+
 
       handleSearchAirportDepartureChange = (event) => {
         this.setState({ searchAirportDeparture: event.target.value });
@@ -211,8 +229,11 @@ class Flights extends Component {
 
                                           var d2=new Date(departureTime);
                                           const datedep= format(d2,"dd.MM.yyyy");
+                                    
                                           const timedep=format(d2,"hh:mm");
-                                  return(<div className={classes.flightcard}>
+                                        
+                                  return(
+                                  <div className={classes.flightcard}>
                                   
                                    <div className={classes.flightcardcontent}>
                                      <div className={classes.flightrow}>
@@ -235,6 +256,8 @@ class Flights extends Component {
                                                  <div className={classes.flightoperator}>
                                                         <span className={classes.title}></span>
                                                        
+                                                        {(this.props.isAuthenticated && this.props.isAdmin  && !deleted)?  <span>Available tickets:{capacity}</span> :null }
+
                                                  </div>
                                                  <div className={classes.flightnumber}>
                                                         <span className={classes.title}>Price: {ticketPrice}</span>
@@ -243,8 +266,9 @@ class Flights extends Component {
                                                         {/* <span className={classes.detail}>{ticketPrice}</span> */}
                                                  </div>
                                                  <div className={classes.flightclass}>
-                                                  {(this.props.isAuthenticated && this.props.isUser)?  <button className={classes.btnn} onClick={() => this.handleAdd(user)}>Buy ticket</button> :null }
-                                                       
+                                                  {(this.props.isAuthenticated && this.props.isUser && capacity>0 && !deleted)?  <button className={classes.btnn} onClick={() => this.handleAdd(user)}>Buy ticket</button> :null }
+                                                  {(this.props.isAuthenticated && this.props.isUser && capacity===0 && !deleted)?  <span>SOLD OUT</span> :null }
+                                                  {(this.props.isAuthenticated && this.props.isAdmin && !deleted)?  <button className={classes.btnn} onClick={() => this.handleDelete(user)}>Delete ticket</button> :null }    
                                                  </div>
                                                  
                                     
@@ -273,6 +297,7 @@ const mapStateToProps = state => {
   return {
 
     isAuthenticated: state.auth.token !== null,
-    isUser: state.auth.role==0
+    isUser: state.auth.role==0,
+    isAdmin:state.auth.role==1
   }}
 export default connect( mapStateToProps )( Flights )
