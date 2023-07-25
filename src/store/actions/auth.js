@@ -44,22 +44,22 @@ export const auth = (email, password, isSignup) => {
     return dispatch => {
         dispatch(authStart());
         const authData = {
-            email: email,
+            username: email,
             password: password,
            
         };
-        let url = 'https://localhost:44326/api/Auth/login';
+        let url = 'http://localhost:8090/api/auth/signin';
         if (!isSignup) {
-            url = 'https://localhost:44326/api/Auth/login';
+            url = 'http://localhost:8090/api/auth/signin';
         }
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
                 const expirationDate = new Date(new Date().getTime() + 30 * 1000);
-                localStorage.setItem('token', response.data.idToken);
+                localStorage.setItem('token', response.data.accessToken);
                 localStorage.setItem('expirationDate', expirationDate);
-                localStorage.setItem('userId', authData.email);
-                dispatch(authSuccess(response.data.idToken, authData.email));
+                localStorage.setItem('userId', authData.username);
+                dispatch(authSuccess(response.data.token, authData.username));
                 dispatch(checkAuthTimeout(30));
             })
             .catch(err => {
@@ -94,7 +94,7 @@ export const authCheckState = () => {
 };
 export const register= (user)=>{
        return dispatch=>{
-        axios.post('https://localhost:44348/api/User/registration', user)
+        axios.post('http://localhost:8090/api/auth/signup', user)
             .then(response => {
                 
                 console.log(response);

@@ -12,6 +12,7 @@ import Login from './containers/Auth/Login/Login';
 import Logout from './containers/Auth/Logout/Logout';
 import Tickets from './containers/Tickets/Tickets'
 import * as actions from './store/actions/index';
+import ActivateProfile from './containers/Auth/ActivateProfile';
 
 class App extends Component {
   componentDidMount () {
@@ -25,6 +26,7 @@ class App extends Component {
         <Route path="/login" component={Login} />
          <Route path="/flights" component= {Flights} /> 
          <Route path="/" component ={Flights}/>
+         <Route path="/activate" component={ActivateProfile} />
         {/* <Route path="/flights" component={} */}
         {/* <Route path="/" exact component={BurgerBuilder} /> */}
          <Redirect to="/" /> 
