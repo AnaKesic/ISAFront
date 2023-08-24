@@ -5,7 +5,7 @@ import axios from 'axios';
 const ActivateProfile = ({ match, history }) => {
   useEffect(() => {
     const { id } = match.params; // Access the "id" parameter from the route
-    console.log(id);
+    console.log({id});
 
     // Make the API call to activate the profile
     // Assuming you have axios installed and properly imported

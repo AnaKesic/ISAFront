@@ -55,12 +55,12 @@ export const auth = (email, password, isSignup) => {
         axios.post(url, authData)
             .then(response => {
                 console.log(response);
-                const expirationDate = new Date(new Date().getTime() + 30 * 1000);
+                const expirationDate = new Date(new Date().getTime() + 3000*1000);
                 localStorage.setItem('token', response.data.accessToken);
                 localStorage.setItem('expirationDate', expirationDate);
                 localStorage.setItem('userId', authData.username);
                 dispatch(authSuccess(response.data.token, authData.username));
-                dispatch(checkAuthTimeout(30));
+                dispatch(checkAuthTimeout(3000));
             })
             .catch(err => {
                 dispatch(authFail(err.response.data.error));

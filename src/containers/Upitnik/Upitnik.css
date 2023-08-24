@@ -1,0 +1,68 @@
+.okvir{
+    width: 800px;
+    height:500px;
+    border-color:blue;
+    border-style: solid;
+    scrollbar-width: 5px;
+    overflow: scroll;
+}
+h3{
+    text-align: center;
+}
+
+.gridcontainer {
+    display: grid;
+    grid-template-columns: 7% 70% 11.5% 11.5%;
+    height:40px;
+    background-color: #2196F3;
+    
+  }
+  .griditem {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    border-bottom: none;
+    padding: 10px;
+    height:40px;
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display : inline-flex;
+    align-content: flex-start;
+    flex-direction: row;
+  }
+
+  .griditemSpecial {
+    background-color: rgba(255, 255, 255, 0.8);
+    border:none;
+    padding: 10px;
+    height:40px;
+    font-size: 14px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display : inline-flex;
+    align-content: flex-start;
+    flex-direction: row;
+  }
+
+ 
+
+.pitanje{
+    font-size: 10px;
+    padding:0px;
+    margin:0px;
+    text-align: center;
+    align-self: center;
+  }
+  label{
+    margin-top:10px;
+
+    padding:0px;
+  }
+
+  .specialQ{
+   border-style: none;
+
+  }
+  
